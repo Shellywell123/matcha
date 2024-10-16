@@ -78,19 +78,18 @@ func getReadingTime(link string) string {
 
 func (w MarkdownWriter) writeFavicon(s *gofeed.Feed) string {
 	var src string
-	var err error
-	var u *URL
 	if s.FeedLink == "" {
 		// default feed favicon
 		return "🍵"
 
-	} else {
-		u, err = url.Parse(s.FeedLink)
-		if err != nil {
-			fmt.Println(err)
-		}
-		src = "https://www.google.com/s2/favicons?sz=32&domain=" + u.Hostname()
+	} 
+	
+	u, err := url.Parse(s.FeedLink)
+	if err != nil {
+		fmt.Println(err)
 	}
+	src = "https://www.google.com/s2/favicons?sz=32&domain=" + u.Hostname()
+	
 	// if s.Title contains "hacker news"
 	if strings.Contains(s.Title, "Hacker News") {
 		src = "https://news.ycombinator.com/favicon.ico"
