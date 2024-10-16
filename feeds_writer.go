@@ -78,12 +78,14 @@ func getReadingTime(link string) string {
 
 func (w MarkdownWriter) writeFavicon(s *gofeed.Feed) string {
 	var src string
+	var err error
+	var u *URL
 	if s.FeedLink == "" {
 		// default feed favicon
 		return "🍵"
 
 	} else {
-		u, err := url.Parse(s.FeedLink)
+		u, err = url.Parse(s.FeedLink)
 		if err != nil {
 			fmt.Println(err)
 		}
