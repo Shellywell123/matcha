@@ -174,14 +174,11 @@ func generateFeedItems(w Writer, feed *gofeed.Feed, rss RSS) string {
 		// Add the comments link if it's a Hacker News feed
 		if strings.Contains(feed.Link, "news.ycombinator.com") {
 			commentsLink, commentsCount := getCommentsInfo(item)
-			if strings.Contains(link, "github.com") {
-				items += w.writeLink(" :SiGithub: ", commentsLink, false, "")
+			if commentsCount < 100 {
+				items += w.writeLink("💬 ", commentsLink, false, "")
 			} else {
-				if commentsCount < 100 {
-					items += w.writeLink("💬 ", commentsLink, false, "")
-				} else {
-					items += w.writeLink("🔥 ", commentsLink, false, "")
-				}
+				items += w.writeLink("🔥 ", commentsLink, false, "")
+			}
 			}
 		}
 
@@ -200,7 +197,13 @@ func generateFeedItems(w Writer, feed *gofeed.Feed, rss RSS) string {
 			timeInMin = getReadingTime(link)
 		}
 
-		items += w.writeLink(title, link, true, timeInMin)
+		// append gh logo to title if it is a github link
+		var icon string
+		if strings.Contains(link, "github.com") {
+			icon = ":SiGithub: "
+		}
+		
+		items += w.writeLink(icon + title, link, true, timeInMin)
 		if rss.summarize {
 			items += w.writeSummary(summary, true)
 		}
