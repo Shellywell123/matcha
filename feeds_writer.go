@@ -200,7 +200,7 @@ func generateFeedItems(w Writer, feed *gofeed.Feed, rss RSS) string {
 			timeInMin = getReadingTime(link)
 		}
 
-		items += w.writeLink(":SiAccenture: "+title, link, true, timeInMin)
+		items += w.writeLink(title, link, true, timeInMin)
 		if rss.summarize {
 			items += w.writeSummary(summary, true)
 		}
