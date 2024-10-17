@@ -24,7 +24,7 @@ func (w MarkdownWriter) write(body string) {
 
 func (w MarkdownWriter) writeLink(title string, url string, newline bool, readingTime string) string {
 	var content string
-	content = "\n[" + title + "](" + url + ")"
+	content = "[" + title + "](" + url + ")"
 	if readingTime != "" {
 		content += " (" + readingTime + ")"
 	}

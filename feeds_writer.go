@@ -202,7 +202,7 @@ func generateFeedItems(w Writer, feed *gofeed.Feed, rss RSS) string {
 			icon = ":SiGithub: "
 		}
 
-		items += w.writeLink(icon+title, link, true, timeInMin)
+		items += w.writeLink(icon+title+"\n", link, true, timeInMin)
 		if rss.summarize {
 			items += w.writeSummary(summary, true)
 		}
@@ -225,7 +225,7 @@ func generateFeedItems(w Writer, feed *gofeed.Feed, rss RSS) string {
 
 // Writes the feed and its items
 func writeFeed(w Writer, feed *gofeed.Feed, items string) {
-	w.write(fmt.Sprintf("---\n \n### %s  %s\n%s", w.writeFavicon(feed), feed.Title, items))
+	w.write(fmt.Sprintf("\n---\n \n### %s  %s\n%s", w.writeFavicon(feed), feed.Title, items))
 }
 
 // Returns the title and link for the given feed item
