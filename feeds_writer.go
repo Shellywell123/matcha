@@ -96,7 +96,7 @@ func (w MarkdownWriter) writeFavicon(s *gofeed.Feed) string {
 	}
 
 	//return html image tag of favicon
-	return fmt.Sprintf("[<img src=\"%s\" width=\"32\" height=\"32\" />](\"https://%s\")", u.Hostname(), src)
+	return fmt.Sprintf("[<img src=\"%s\" width=\"32\" height=\"32\" />](\"https://%s\")", src, u.Hostname())
 }
 
 func ExtractImageTagFromHTML(htmlText string) string {
