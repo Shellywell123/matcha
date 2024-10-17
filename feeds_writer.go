@@ -78,10 +78,11 @@ func getReadingTime(link string) string {
 
 func (w MarkdownWriter) writeFavicon(s *gofeed.Feed) string {
 	var src string
+	var favicon string
+
 	if s.FeedLink == "" {
 		// default feed favicon
-		return "🍵"
-
+		favicon = "🍵"
 	}
 
 	u, err := url.Parse(s.FeedLink)
@@ -96,7 +97,9 @@ func (w MarkdownWriter) writeFavicon(s *gofeed.Feed) string {
 	}
 
 	//return html image tag of favicon
-	return fmt.Sprintf("[<img src=\"%s\" width=\"32\" height=\"32\" />](\"https://%s\")", src, u.Hostname())
+	favicon = fmt.Sprintf("[<img src=\"%s\" width=\"32\" height=\"32\" />](\"https://%s\")", src, s.FeedLink)
+
+	return favicon
 }
 
 func ExtractImageTagFromHTML(htmlText string) string {
