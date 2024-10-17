@@ -82,21 +82,21 @@ func (w MarkdownWriter) writeFavicon(s *gofeed.Feed) string {
 		// default feed favicon
 		return "🍵"
 
-	} 
-	
+	}
+
 	u, err := url.Parse(s.FeedLink)
 	if err != nil {
 		fmt.Println(err)
 	}
 	src = "https://www.google.com/s2/favicons?sz=32&domain=" + u.Hostname()
-	
+
 	// if s.Title contains "hacker news"
 	if strings.Contains(s.Title, "Hacker News") {
 		src = "https://news.ycombinator.com/favicon.ico"
 	}
 
 	//return html image tag of favicon
-	return fmt.Sprintf("<a href=\"%s\"><img src=\"%s\" width=\"32\" height=\"32\" /></a>", u.Hostname(), src)
+	return fmt.Sprintf("[<img src=\"%s\" width=\"32\" height=\"32\" />](\"https://%s\")", u.Hostname(), src)
 }
 
 func ExtractImageTagFromHTML(htmlText string) string {
@@ -175,7 +175,7 @@ func generateFeedItems(w Writer, feed *gofeed.Feed, rss RSS) string {
 		if strings.Contains(feed.Link, "news.ycombinator.com") {
 			commentsLink, commentsCount := getCommentsInfo(item)
 			if strings.Contains(link, "github.com") {
-			items += w.writeLink(" :SiGithub: ", commentsLink, false, "")
+				items += w.writeLink(" :SiGithub: ", commentsLink, false, "")
 			} else {
 				if commentsCount < 100 {
 					items += w.writeLink("💬 ", commentsLink, false, "")
@@ -200,7 +200,7 @@ func generateFeedItems(w Writer, feed *gofeed.Feed, rss RSS) string {
 			timeInMin = getReadingTime(link)
 		}
 
-		items += w.writeLink(":SiAccenture: " + title, link, true, timeInMin)
+		items += w.writeLink(":SiAccenture: "+title, link, true, timeInMin)
 		if rss.summarize {
 			items += w.writeSummary(summary, true)
 		}
