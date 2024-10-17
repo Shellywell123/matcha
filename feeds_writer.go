@@ -179,7 +179,6 @@ func generateFeedItems(w Writer, feed *gofeed.Feed, rss RSS) string {
 			} else {
 				items += w.writeLink("🔥 ", commentsLink, false, "")
 			}
-			}
 		}
 
 		// Add the Instapaper link if enabled
@@ -202,8 +201,8 @@ func generateFeedItems(w Writer, feed *gofeed.Feed, rss RSS) string {
 		if strings.Contains(link, "github.com") {
 			icon = ":SiGithub: "
 		}
-		
-		items += w.writeLink(icon + title, link, true, timeInMin)
+
+		items += w.writeLink(icon+title, link, true, timeInMin)
 		if rss.summarize {
 			items += w.writeSummary(summary, true)
 		}
